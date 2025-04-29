@@ -137,6 +137,13 @@ def reformat(t):
             vi += 1
             i += 1
             continue
+        if x == "E":
+            digtext = f[i+1:]
+            digtext = "%" + makeform(digtext) + "e"
+            out += digtext % t[vi]
+            vi += 1
+            i += 1
+            continue
         if x == "I":
             digtext = f[i+1:]
             digtext = "%" + makeform(digtext) + "i"
