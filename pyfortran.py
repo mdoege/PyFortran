@@ -1,6 +1,7 @@
 # Fortran interpreter
 
 import sys, array
+from math import *
 from functools import reduce
 from operator import mul
 
@@ -98,6 +99,54 @@ def get_ind(index, dims):
             q += (index[i] - 1)
     return q
 
+def makeform(t):
+    # Create Python format string
+    out = ""
+    for x in t:
+        if x.isdigit() or x == ".":
+            out += x
+        else:
+            break
+    return out
+
+def reformat(t):
+    # Apply FORMAT to output
+    f = src[lab[str(t[0])]]
+    par = f.find("(")
+    f = f[par:]
+
+    num = ""
+    i = 0
+    out = ""
+    vi = 1
+    #print(t,f)
+    while i < len(f):
+        x = f[i]
+        if x == ",":
+            num = ""
+        if x.isdigit():
+            num += x
+        if x == "H":
+            out += f[i+1:i+1+int(num)]
+            i += int(num)
+            continue
+        if x == "F":
+            digtext = f[i+1:]
+            digtext = "%" + makeform(digtext) + "f"
+            out += digtext % t[vi]
+            vi += 1
+            i += 1
+            continue
+        if x == "I":
+            digtext = f[i+1:]
+            digtext = "%" + makeform(digtext) + "i"
+            out += digtext % t[vi]
+            vi += 1
+            i += 1
+            continue
+        i += 1
+    return out
+
 # check for all labels
 for l in range(len(src)):
     curlab = src[l][:5].strip()
@@ -150,7 +199,14 @@ while True:
             arr[aname] = an, adims
 
     if beg("PRINT"):
-        print(eval(repvar(line[5:])))
+        out = eval(repvar(line[5:]) + ",")
+        if line[5].isdigit():
+            out = reformat(out)
+            print(out)
+        else:
+            for x in out:
+                print(x, "  ", end = "")
+            print()
 
     if beg("READ"):
         v = line[4:].split(",")

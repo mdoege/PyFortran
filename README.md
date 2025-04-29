@@ -8,7 +8,7 @@ Usage:
 
 ### Differences between PyFortran and historical FORTRAN languages
 
-* FORMAT statements are ignored.
+* limited FORMAT support
 * Source code can be in lowercase.
 * Integer division works like in Python (e.g. 3/2 == 1.5 in Python 3, unlike Python 2 or FORTRAN).
 * Completely empty, non-comment lines are allowed.
