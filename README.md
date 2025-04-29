@@ -10,7 +10,6 @@ Usage:
 
 * FORMAT statements are ignored.
 * no arrays
-* no continuation lines
 * Source code can be in lowercase.
 * Integer division works like in Python (e.g. 3/2 == 1.5 in Python 3, unlike Python 2 or FORTRAN).
 * Completely empty, non-comment lines are allowed.

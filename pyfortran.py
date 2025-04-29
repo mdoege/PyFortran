@@ -5,8 +5,20 @@ from math import *
 
 fn = sys.argv[1]
 
-src = open(fn).readlines()
-src = [q.upper() for q in src]
+srco = open(fn).readlines()
+srco = [q.upper() for q in srco]
+src = []
+for x in srco:
+    l = x[:72].rstrip()
+    # remove indentation:
+    if len(l) > 6:
+        l = l[:6] + l[6:].strip()
+    if len(l) > 5 and l[5] != " " and l[5] != "0":
+        src[-1] += l[6:].strip()
+    else:
+        src.append(l)
+
+#for l in src: print(l)
 cur = 0
 
 lab = {}    # labels
@@ -59,7 +71,7 @@ for l in range(len(src)):
         lab[curlab] = l
 
 while True:
-    if src[cur][0] == "C":  # skip comment lines
+    if len(src[cur]) > 0 and src[cur][0] == "C":  # skip comment lines
         #print(src[cur].strip())
         cur += 1
         continue
@@ -72,7 +84,7 @@ while True:
     if beg("STOP") or beg("END"):
         break
 
-    line = src[cur][6:72].replace(" ", "").strip()
+    line = src[cur][6:].replace(" ", "").strip()
 
     # assignment
     if "=" in line and not beg("DO"):
