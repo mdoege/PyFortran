@@ -266,8 +266,16 @@ while True:
         #print(va, la, inc)
 
     if beg("GO TO") or beg("GOTO"):
-        cur = lab[line[4:].strip()]
-        continue
+        targ = line[4:].strip()
+        if targ[0] == "(":  # computed GO TO
+            par = targ.find(")")
+            dest = targ[1:par].split(",")
+            v = eval(repvar(targ[targ.rfind(",") + 1:]))
+            cur = lab[dest[v - 1]]
+            continue
+        else:               # normal GO TO
+            cur = lab[targ]
+            continue
 
     if beg("IF (") or beg("IF("):
         par = line.rfind(")")
