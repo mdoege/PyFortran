@@ -17,3 +17,7 @@ Usage:
 * Jumping out of loops probably causes problems when later entering same loop.
 * Loops can use real numbers, not just integers. (But the loop variable can only increase, as in old FORTRAN.)
 
+### Credits
+
+Some Fortran programs were taken from [hughcoleman/retrocomputing](https://github.com/hughcoleman/retrocomputing).
+
