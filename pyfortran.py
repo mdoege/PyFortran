@@ -68,8 +68,6 @@ while True:
 
     # check for current label
     curlab = src[cur][:5].strip()
-    if curlab != "":
-        lab[curlab] = cur
 
     if beg("STOP") or beg("END"):
         break
