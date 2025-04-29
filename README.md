@@ -21,5 +21,5 @@ Usage:
 
 ### Credits
 
-Some Fortran programs were taken from [hughcoleman/retrocomputing](https://github.com/hughcoleman/retrocomputing).
+Some Fortran programs were taken from [hughcoleman/retrocomputing](https://github.com/hughcoleman/retrocomputing), see the LICENSE file in the demo directory.
 
