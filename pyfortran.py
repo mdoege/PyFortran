@@ -134,7 +134,7 @@ while True:
         while len(loops[curlab]) > 0:
             va, lim, inc, lnum = loops[curlab][-1]
             var[va] += inc
-            if var[va] + inc > lim: # final interation?
+            if var[va] + inc > lim: # final iteration?
                 loops[curlab].pop()
             if var[va] <= lim:
                 cur = lnum + 1
