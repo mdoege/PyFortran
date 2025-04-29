@@ -33,7 +33,10 @@ loops = {}  # loops
 arr = {}    # arrays
 
 # built-in functions
-funcs = ("COSF", "INTF", "SQRTF", "XMODF")
+funcs = ("SINF", "COSF", "INTF", "SQRTF", "XMODF", "EXPF", "LOGF", "ATANF")
+
+def SINF(x):
+    return sin(x)
 
 def COSF(x):
     return cos(x)
@@ -43,6 +46,15 @@ def INTF(x):
 
 def SQRTF(x):
     return sqrt(x)
+
+def EXPF(x):
+    return exp(x)
+
+def LOGF(x):
+    return log(x)
+
+def ATANF(x):
+    return atan(x)
 
 def XMODF(a, b):
     return a % b
