@@ -8,9 +8,10 @@ Usage:
 
 ### Differences between PyFortran and historical FORTRAN languages
 
-* limited FORMAT support
+* limited FORMAT support (just for PRINT statements)
 * Source code can be in lowercase.
-* Integer division works like in Python (e.g. 3/2 == 1.5 in Python 3, unlike Python 2 or FORTRAN).
+* Arrays can have more than three dimensions.
+* Integer division works like in Python (e.g. 3/2 == 1.5 in Python 3, unlike in Python 2 or FORTRAN).
 * Completely empty, non-comment lines are allowed.
 * STOP or END are optional.
 * Jumping out of loops probably causes problems when later entering same loop.
