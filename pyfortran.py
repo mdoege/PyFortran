@@ -1,9 +1,13 @@
 # Fortran interpreter
 
-import sys
-from math import *
+import sys, array
+from functools import reduce
+from operator import mul
 
 fn = sys.argv[1]
+if len(sys.argv) > 2:
+    infn = sys.argv[2]
+    infile = open(infn)
 
 srco = open(fn).readlines()
 srco = [q.upper() for q in srco]
@@ -25,6 +29,7 @@ cur = 0
 lab = {}    # labels
 var = {}    # variables
 loops = {}  # loops
+arr = {}    # arrays
 
 # built-in functions
 funcs = ("COSF", "INTF", "SQRTF")
@@ -50,20 +55,48 @@ def repvar(l):
     l += "?"
     o = ""
     v = ""
-    for x in l:
+    i = 0
+    while i < len(l):
+        x = l[i]
         if x.isalpha() and len(v) == 0:
             v += x
         elif x.isalnum() and len(v) > 0:
             v += x
         else:
             if len(v):
-                if v in funcs:
+                if v in funcs:  # built-in function
                     o += v
-                else:
+                elif v in arr:  # array
+                    aind = [int(eval(repvar(q))) for q in parse_ind(l[i:])]
+                    a, adims = arr[v]
+                    aind1 = get_ind(aind, adims)
+                    o += str(arr[v][0][aind1])
+                    i = l.find(")", i) + 1
+                    v = ""
+                    continue
+                else:           # scalar variable
                     o += str(var[v])
                 v = ""
             o += x
+        i += 1
     return o[:-1]
+
+def parse_ind(x):
+    # Parse array index from text
+    par = x.find(")")
+    out = x[1:par].split(",")
+    #print(out)
+    return out
+
+def get_ind(index, dims):
+    # Get 1-dimensional index from multi-dimensional index
+    q = 0
+    for i in range(len(dims)):
+        if i > 0:
+            q += (index[i] - 1) * dims[i-1]
+        else:
+            q += (index[i] - 1)
+    return q
 
 # check for all labels
 for l in range(len(src)):
@@ -91,11 +124,39 @@ while True:
     if "=" in line and not beg("DO"):
         left, right = line.split("=")
         right = repvar(right)
-        var[left] = eval(right)
+        if "(" in left: # array
+            par = left.find("(")
+            aname = left[:par]
+            aind = [int(eval(repvar(q))) for q in left[par+1:-1].split(",")]
+            #print(aind)
+            a, adims = arr[aname]
+            aind1 = get_ind(aind, adims)
+            arr[aname][0][aind1] = eval(right)
+            #print(arr[aname])
+        else:
+            var[left] = eval(right)
         #print(var[left])
 
+    if beg("DIMENSION"):
+        v = line[9:].split(")")
+        for x in v:
+            if len(x) == 0:
+                continue
+            par = x.find("(")
+            aname = x[:par].replace(",", "")
+            adims = [int(q) for q in x[par+1:].split(",")]
+            #print(aname, adims)
+            an = array.array("f", [0] * reduce(mul, adims))
+            arr[aname] = an, adims
+
     if beg("PRINT"):
-        print(repvar(line[5:]))
+        print(eval(repvar(line[5:])))
+
+    if beg("READ"):
+        v = line[4:].split(",")
+        for x in v:
+            if x[0].isalpha():
+                var[x] = float(infile.readline())
 
     if beg("PUNCH"):
         v = line[5:].split(",")
