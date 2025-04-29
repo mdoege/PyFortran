@@ -146,7 +146,7 @@ while True:
             aname = x[:par].replace(",", "")
             adims = [int(q) for q in x[par+1:].split(",")]
             #print(aname, adims)
-            an = array.array("f", [0] * reduce(mul, adims))
+            an = array.array("d", [0] * reduce(mul, adims))
             arr[aname] = an, adims
 
     if beg("PRINT"):
