@@ -14,6 +14,7 @@ for x in srco:
     if len(l) > 6:
         l = l[:6] + l[6:].strip()
     if len(l) > 5 and l[5] != " " and l[5] != "0":
+        # concatenate continuation lines
         src[-1] += l[6:].strip()
     else:
         src.append(l)
