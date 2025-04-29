@@ -166,7 +166,7 @@ while True:
         print()
 
     if beg("ACCEPT"):
-        v = line[7:].split(",")
+        v = line[6:].split(",")
         for x in v:
             if x[0].isalpha():
                 var[x] = input(x + "=? ")
