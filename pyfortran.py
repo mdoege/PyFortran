@@ -33,7 +33,7 @@ loops = {}  # loops
 arr = {}    # arrays
 
 # built-in functions
-funcs = ("COSF", "INTF", "SQRTF")
+funcs = ("COSF", "INTF", "SQRTF", "XMODF")
 
 def COSF(x):
     return cos(x)
@@ -43,6 +43,9 @@ def INTF(x):
 
 def SQRTF(x):
     return sqrt(x)
+
+def XMODF(a, b):
+    return a % b
 
 def beg(cmd):
     # check for Fortran keyword
@@ -128,7 +131,7 @@ def reformat(t):
             num += x
         if x == "H":
             out += f[i+1:i+1+int(num)]
-            i += int(num)
+            i += int(num) + 1
             continue
         if x == "F":
             digtext = f[i+1:]
@@ -254,8 +257,8 @@ while True:
         cur = lab[line[4:].strip()]
         continue
 
-    if beg("IF"):
-        par = line.find(")")
+    if beg("IF (") or beg("IF("):
+        par = line.rfind(")")
         test = line[3:par]
         targ = line[par+1:].split(",")
         v = eval(repvar(test))
