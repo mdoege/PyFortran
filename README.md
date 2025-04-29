@@ -1,3 +1,5 @@
+![logo](logo.png "PyFortran logo")
+
 ## PyFortran
 
 A Python interpreter for early FORTRAN, i.e. to run programs written for FORTRAN on the IBM 704 and FORTRAN / GOTRAN for the IBM 1620 or FORTRANSIT on the IBM 650
