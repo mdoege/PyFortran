@@ -165,6 +165,12 @@ while True:
                 print("%12u" % var[x], end = "")
         print()
 
+    if beg("ACCEPT"):
+        v = line[7:].split(",")
+        for x in v:
+            if x[0].isalpha():
+                var[x] = input(x + "=? ")
+
     if beg("DO"):
         left, right = line.split("=")
         right = repvar(right)
