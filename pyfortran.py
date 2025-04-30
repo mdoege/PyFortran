@@ -147,6 +147,7 @@ def reformat(t):
         if x == "H":
             out += f[i+1:i+1+int(num)]
             i += int(num) + 1
+            num = ""
             continue
         if x == "F":
             digtext = f[i+1:]
@@ -195,7 +196,7 @@ while True:
     line = src[cur][6:].replace(" ", "").strip()
 
     # assignment
-    if "=" in line and not beg("DO"):
+    if "=" in line and not beg("DO") and not beg("FORMAT"):
         left, right = line.split("=")
         right = repvar(right)
         if "(" in left: # array
