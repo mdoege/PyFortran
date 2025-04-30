@@ -18,7 +18,7 @@ for x in srco:
     # remove indentation:
     if len(l) > 6:
         l = l[:6] + l[6:].strip()
-    if len(l) > 5 and l[5] != " " and l[5] != "0":
+    if len(l) > 5 and l[5] != " " and l[5] != "0" and l[0] != "C":
         # concatenate continuation lines
         src[-1] += l[6:].strip()
     else:
@@ -33,7 +33,7 @@ loops = {}  # loops
 arr = {}    # arrays
 
 # built-in functions
-funcs = ("SINF", "COSF", "INTF", "SQRTF", "XMODF", "EXPF", "LOGF", "ATANF")
+funcs = ("SINF", "COSF", "INTF", "SQRTF", "XMODF", "EXPF", "LOGF", "ATANF", "FLOATF")
 
 def SINF(x):
     return sin(x)
@@ -55,6 +55,9 @@ def LOGF(x):
 
 def ATANF(x):
     return atan(x)
+
+def FLOATF(x):
+    return float(x)
 
 def XMODF(a, b):
     return a % b
