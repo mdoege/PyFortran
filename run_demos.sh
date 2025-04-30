@@ -6,6 +6,8 @@ python pyfortran.py demo/prime.f demo/prime.in
 echo "=============================="
 python pyfortran.py demo/fortransit_example_5_src.f
 echo "=============================="
+python pyfortran.py demo/MatInv.f
+echo "=============================="
 python pyfortran.py demo/fibo.f
 echo "=============================="
 python pyfortran.py demo/array.f
