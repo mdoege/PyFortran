@@ -20,5 +20,7 @@ python pyfortran.py demo/loop2.f
 echo "=============================="
 python pyfortran.py demo/cont.f
 echo "=============================="
+python pyfortran.py demo/over.f
+echo "=============================="
 python pyfortran.py demo/compgoto.f
 
